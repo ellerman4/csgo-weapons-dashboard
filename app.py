@@ -113,7 +113,7 @@ if __name__ == '__main__':
         
         hy.title('This is a title')
 
-        AgGrid(data, theme='streamlit',height=500, fit_columns_on_grid_load=True)
+        AgGrid(data.iloc[: , :-1], theme='streamlit',height=500, fit_columns_on_grid_load=True)
 
         # Convert dataframe to csv
         @hy.cache()
