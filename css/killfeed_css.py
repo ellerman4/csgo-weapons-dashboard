@@ -1,7 +1,10 @@
 import pandas as pd
 import hydralit as hy
+import random
+import uuid
 
-def killfeed(killfeed_img):
+def killfeed(weapon_data):
+    unique_id = str(uuid.uuid4())   # Generate a unique id to not overwrite existing .weapon css element everytime function is called
     hy.markdown(
         f"""
         <style>
@@ -35,11 +38,11 @@ def killfeed(killfeed_img):
             float: left;
             }}
 
-        .weapon {{
+        .weapon{unique_id} {{
             margin-top: 8px;
             height: 25px;
             width: 80px;
-            background: url({killfeed_img}) no-repeat;
+            background: url({weapon_data['Killfeed'].values[0]}) no-repeat;
             background-size: cover;
             float: left;
             }}
@@ -83,11 +86,11 @@ def killfeed(killfeed_img):
         </style>
         """, unsafe_allow_html=True)
 
-    hy.markdown('''<link href='https://fonts.googleapis.com/css?family=Rajdhani:600' rel='stylesheet' type='text/css'>
+    hy.markdown(f'''<link href='https://fonts.googleapis.com/css?family=Rajdhani:600' rel='stylesheet' type='text/css'>
         <div class="container">
         <div class="killFeed">
             <a href="" class="killer">banned</a>
-            <div class="weapon"></div>
+            <div class="weapon{unique_id}"></div>
             <div class="headshot"></div>
             <div class="wallbang"></div>
             <a href="" class="killed">storM</a>
@@ -96,7 +99,7 @@ def killfeed(killfeed_img):
         <div class="container">
         <div class="killFeed">
             <a href="" class="killer">bro you fukin suk</a>
-            <div class="weapon"></div>
+            <div class="weapon{unique_id}"></div>
             <div class="headshot true"></div>
             <div class="wallbang"></div>
             <a href="" class="killed">storM</a>
@@ -105,7 +108,7 @@ def killfeed(killfeed_img):
         <div class="container">
         <div class="killFeed">
             <a href="" class="killer">HACKS</a>
-            <div class="weapon"></div>
+            <div class="weapon{unique_id}"></div>
             <div class="headshot"></div>
             <div class="wallbang true"></div>
             <a href="" class="killed">storM</a>
@@ -114,7 +117,7 @@ def killfeed(killfeed_img):
         <div class="container">
         <div class="killFeed">
             <a href="" class="killer">FaZe TrickshoT</a>
-            <div class="weapon"></div>
+            <div class="weapon{unique_id}"></div>
             <div class="headshot true"></div>
             <div class="wallbang true"></div>
             <a href="" class="killed">Mrots</a>
