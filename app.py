@@ -80,7 +80,7 @@ def title_card(weapon_data, weapon_name, weapon_img, weapon_caption,weapon_table
         hy.image(weapon_gif, width=140)
 
     with weapon_col[4]:
-        killfeed(weapon_data['Killfeed'].values[0])
+        killfeed(weapon_data)
 
 
     with hy.expander("Trivia"):
