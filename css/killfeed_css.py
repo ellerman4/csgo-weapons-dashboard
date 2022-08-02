@@ -40,8 +40,8 @@ def killfeed(weapon_data):
 
         .weapon{unique_id} {{
             margin-top: 8px;
-            height: 25px;
-            width: 80px;
+            height: 19px;
+            width: 60px;
             background: url({weapon_data['Killfeed'].values[0]}) no-repeat;
             background-size: cover;
             float: left;
