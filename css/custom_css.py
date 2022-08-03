@@ -1,7 +1,12 @@
-import pandas as pd
 import hydralit as hy
-import random
+import base64
 import uuid
+
+# Function called on each weapon page to fix alignment and apply border to gif
+def align_justify():
+    hy.markdown('<style> .etr89bj1 > img { border-radius: 25px; } </style>', unsafe_allow_html=True)
+    hy.markdown('<style> .css-ocqkz7 { align-items: center; } </style>', unsafe_allow_html=True)
+    hy.markdown('<style> .css-1kyxreq { justify-content: center; } </style>', unsafe_allow_html=True)
 
 def killfeed(weapon_data):
     unique_id = str(uuid.uuid4())   # Generate a unique id to not overwrite existing .weapon css element everytime function is called
@@ -42,7 +47,7 @@ def killfeed(weapon_data):
             margin-top: 8px;
             height: 19px;
             width: 60px;
-            background: url({weapon_data['Killfeed'].values[0]}) no-repeat;
+            background: url({weapon_data['Killfeed']}) no-repeat;
             background-size: cover;
             float: left;
             }}
@@ -123,3 +128,48 @@ def killfeed(weapon_data):
             <a href="" class="killed">Mrots</a>
         </div>
         </div>''', unsafe_allow_html=True)
+
+def draw_name_ammo(weapon_name,weapon_ammo):
+    ammo_img = './assets/hud_imgs/icon_bullets_default.png'
+
+    hy.markdown(
+    """
+    <style>
+    .container {
+        display: flex;
+        align-items: center;
+    }
+    .logo-text {
+        font-weight:600 !important;
+        font-size:36px !important;
+        color: #FAFAFA !important;  
+    }
+    .ammo-text {
+        font-weight:600 !important;
+        font-size:16px !important;
+        color: #b7ff8a !important;
+        padding-left: 5px;
+        padding-bottom: 0px;
+    }
+    .logo-img {
+        height: 39px !important;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        -webkit-filter: invert(100%);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+    hy.markdown(
+        f"""
+        <div class="container">
+            <p class="logo-text">
+                {weapon_name}<p class="ammo-text"> {weapon_ammo} </p>
+            </p>
+            <img class="logo-img" title="Ammo" src="data:image/png;base64,{base64.b64encode(open(ammo_img, "rb").read()).decode()}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )

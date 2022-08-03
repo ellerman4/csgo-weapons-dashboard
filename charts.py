@@ -1,7 +1,3 @@
-#when we import hydralit, we automatically get all of Streamlit
-import hydralit as hy
-import hydralit_components as hc
-import pandas as pd
 from streamlit_echarts import st_echarts
 import random
 import string
@@ -30,7 +26,7 @@ def render_ring_gauge(*args):
                 "axisLabel": {"show": False, "distance": 50},
                 "data": [
                     {
-                        "value": (int(weapon_data['DPS'])/583)*100,
+                        "value": round((int(weapon_data['DPS'])/583)*100),
                         "name": "DPS",
                         "title": {"offsetCenter": ["0%", "35%"], "color": '#FAFAFA'},
                         "detail": {"offsetCenter": ["0%", "51%"],
@@ -44,7 +40,7 @@ def render_ring_gauge(*args):
                         "formatter": f"{int(weapon_data['RoF'])}"
                     },
                     {
-                        "value": int(weapon_data['Recoil']),
+                        "value": round(int(weapon_data['Recoil'])),
                         "name": "Recoil",
                         "title": {"offsetCenter": ["0%", "-50%"], "color": '#FAFAFA'},
                         "detail": {"offsetCenter": ["0%", "-34%"]},
