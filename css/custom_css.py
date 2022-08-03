@@ -94,38 +94,38 @@ def killfeed(weapon_data):
     hy.markdown(f'''<link href='https://fonts.googleapis.com/css?family=Rajdhani:600' rel='stylesheet' type='text/css'>
         <div class="container">
         <div class="killFeed">
-            <a href="" class="killer">banned</a>
+            <a href="" class="killer">woxic</a>
             <div class="weapon{unique_id}"></div>
             <div class="headshot"></div>
             <div class="wallbang"></div>
-            <a href="" class="killed">storM</a>
+            <a href="" class="killed">electroNic</a>
         </div>
         </div>
         <div class="container">
         <div class="killFeed">
-            <a href="" class="killer">bro you fukin suk</a>
+            <a href="" class="killer">paz</a>
             <div class="weapon{unique_id}"></div>
             <div class="headshot true"></div>
             <div class="wallbang"></div>
-            <a href="" class="killed">storM</a>
+            <a href="" class="killed">b1t</a>
         </div>
         </div>
         <div class="container">
         <div class="killFeed">
-            <a href="" class="killer">HACKS</a>
+            <a href="" class="killer">s1mple</a>
             <div class="weapon{unique_id}"></div>
             <div class="headshot"></div>
             <div class="wallbang true"></div>
-            <a href="" class="killed">storM</a>
+            <a href="" class="killed">electroNic</a>
         </div>
         </div>
         <div class="container">
         <div class="killFeed">
-            <a href="" class="killer">FaZe TrickshoT</a>
+            <a href="" class="killer">XANTARES</a>
             <div class="weapon{unique_id}"></div>
             <div class="headshot true"></div>
             <div class="wallbang true"></div>
-            <a href="" class="killed">Mrots</a>
+            <a href="" class="killed">sdy</a>
         </div>
         </div>''', unsafe_allow_html=True)
 
@@ -172,4 +172,58 @@ def draw_name_ammo(weapon_name,weapon_ammo):
         </div>
         """,
         unsafe_allow_html=True
+    )
+
+# Some simple icons for social media
+def footer_icons():
+    # Footer CSS styles
+    hy.markdown(
+    """
+    <style>
+    @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+    a, a:hover {
+        text-decoration: none;
+    }
+    .socialbtns, .socialbtns ul, .socialbtns li {
+        margin: 0;
+        padding: 5px;
+    }
+    .socialbtns li {
+        list-style: none outside none;
+        display: inline-block;
+    }
+    .socialbtns .fa {
+        width: 40px;
+        height: 28px;
+        color: #fff;
+        background-color: #000;
+        border: 1px solid #ffffff;
+        padding-top: 6px;
+        border-radius: 22px;
+        -moz-border-radius: 22px;
+        -webkit-border-radius: 22px;
+        -o-border-radius: 22px;
+    }
+    .socialbtns .fa:hover {
+        color: #000;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+    # Footer HTML
+    hy.markdown(
+    """
+    <div align="center" class="socialbtns">
+        <ul>
+            <li><a href="https://github.com/ellerman4" class="fa fa-lg fa-github"></a></li>
+            <li><a href="https://twitter.com/" class="fa fa-lg fa-twitter"></a></li>
+            <li><a href="https://www.linkedin.com/" class="fa fa-lg fa-linkedin"></a></li>
+        </ul>
+    </div>
+    """,
+    unsafe_allow_html=True
     )

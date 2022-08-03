@@ -1,10 +1,9 @@
-#when we import hydralit, we automatically get all of Streamlit
 import hydralit as hy
 import pandas as pd
 from charts import render_ring_gauge
 from st_aggrid import AgGrid
 from css.streamlit_download_button import download_button
-from css.custom_css import killfeed, draw_name_ammo, align_justify
+from css.custom_css import killfeed, draw_name_ammo, align_justify, footer_icons
 
 
 if __name__ == '__main__':
@@ -15,8 +14,8 @@ if __name__ == '__main__':
     #   And use the data in said row to create a set of hydralit elements and css/html for each
 
     def weapon_card(weapon_data):
-        for index, weapon_data in weapon_data.iterrows():
-            weapon_name = weapon_data['Name']
+        for index, weapon_data in weapon_data.iterrows():   # Iterrate through each row (each weapon)
+            weapon_name = weapon_data['Name']               # Get weapon attributes from respective columns
             weapon_img = weapon_data['Image Path']
             weapon_caption = weapon_data['Caption']
             weapon_ammo = f"{str(weapon_data['Clip Size'])}/{str(weapon_data['Max Ammo'])}"
@@ -111,7 +110,7 @@ if __name__ == '__main__':
         # Display CS:GO logo on the homepage, align and invert color with CSS hacking
         hy.image("http://vignette3.wikia.nocookie.net/logopedia/images/c/c8/CSGO.png", width=300)
         hy.markdown('<style> .css-1kyxreq { justify-content: center; -webkit-filter: invert(100%); } </style>', unsafe_allow_html=True) 
-
+        footer_icons()
 
     # Create page for Rifle stats
     @app.addapp(title='Rifles')
