@@ -8,6 +8,12 @@ from css.custom_css import killfeed, draw_name_ammo, align_justify, footer_icons
 
 if __name__ == '__main__':
 
+    # Function for loading weapon table data
+    # Cached for hopefully better performance
+    @hy.cache
+    def get_data_table(weapon_data):
+        return pd.read_html(weapon_data['Wiki'], skiprows=1)[0]
+
     #   Crate a function to create a sort of template for every item passed to it
     #   i.e. https://i.gyazo.com/b1508db3014944302c498398f3251cc5.png
     #   weapon_data will be a multi-row DataFrame, so we will loop through each row
@@ -19,7 +25,7 @@ if __name__ == '__main__':
             weapon_img = weapon_data['Image Path']
             weapon_caption = weapon_data['Caption']
             weapon_ammo = f"{str(weapon_data['Clip Size'])}/{str(weapon_data['Max Ammo'])}"
-            weapon_table = pd.read_html(weapon_data['Wiki'], skiprows=1)[0]
+            weapon_table = get_data_table(weapon_data)
             weapon_gif = weapon_data['Gif']
             weapon_cost = str(weapon_data['Cost'])
             weapon_pen = str(weapon_data['Armor Penetration'])
@@ -69,7 +75,7 @@ if __name__ == '__main__':
             with hy.expander("Trivia"):
                 hy.write("""""")
 
-
+    # Define theme, initiate app with hy.HydraApp
     over_theme = {'txc_inactive': '#FFFFFF'}
     app = hy.HydraApp(
         title='Secure Hydralit Data Explorer',
@@ -90,7 +96,8 @@ if __name__ == '__main__':
     # Create a homepage
     @app.addapp(is_home=True)
     def my_home():
-        hy.title('This is a title')
+        hy.title('CS:GO Weapon Stats')
+        hy.header('Full dataset')
 
         # Display the entire csv file on the homepage, available for download
         AgGrid(data.iloc[: , :-5], theme='streamlit',height=500, fit_columns_on_grid_load=True) # data.iloc[: , :-5] to drop columns irrelevant to user
@@ -109,8 +116,11 @@ if __name__ == '__main__':
 
         # Display CS:GO logo on the homepage, align and invert color with CSS hacking
         hy.image("http://vignette3.wikia.nocookie.net/logopedia/images/c/c8/CSGO.png", width=300)
-        hy.markdown('<style> .css-1kyxreq { justify-content: center; -webkit-filter: invert(100%); } </style>', unsafe_allow_html=True) 
+        hy.markdown('<style> .css-1kyxreq { justify-content: center; -webkit-filter: invert(100%); } </style>', unsafe_allow_html=True)
+
+        # Load our neat footer
         footer_icons()
+
 
     # Create page for Rifle stats
     @app.addapp(title='Rifles')
