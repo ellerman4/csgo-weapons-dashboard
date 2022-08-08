@@ -9,8 +9,6 @@ from css.custom_css import killfeed, draw_name_ammo, align_justify, footer_icons
 if __name__ == '__main__':
 
     # Function for loading weapon table data
-    # Cached for hopefully better performance
-    @hy.cache
     def get_data_table(weapon_data):
         return pd.read_html(weapon_data['Wiki'], skiprows=1)[0]
 
@@ -29,6 +27,11 @@ if __name__ == '__main__':
             weapon_gif = weapon_data['Gif']
             weapon_cost = str(weapon_data['Cost'])
             weapon_pen = str(weapon_data['Armor Penetration'])
+
+            # Clean data tables if needed (some tables are scraped with strange properties)
+            if len(weapon_table.columns) > 3:
+                weapon_table = weapon_table.iloc[: , :-1]
+                weapon_table.columns = weapon_table.columns.droplevel()
 
             # Create 3 hydralit column elements, for our 'title' row
             # i.e. https://i.gyazo.com/6ecac530686e3f45903c22524e758aff.png
