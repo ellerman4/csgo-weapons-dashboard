@@ -134,69 +134,40 @@ if __name__ == '__main__':
 
 
     # Create page for Rifle stats
+    # Locate all the data matching 'Rifle' for column ['Type'], assign to rifle data
+    # Pass rifle data to our weapon_card function
     @app.addapp(title='Rifles')
     def rifle_stats():
-        # Align and justify css with align_justify function
-        # Could be implemented in weapon_card function to not repeat ourselves, but creates inefficient loading
-        
-
-        # Locate all the data matching 'Rifle' for column ['Type'], assign to rifle data
-        # Pass rifle data to our weapon_card function
         rifle_data = data.loc[data['Type'] == 'Rifle']
         weapon_card( weapon_data = rifle_data)
 
-
-    # Create page for Pistol stats
+    # Do the same for Pistol stats and so on
     @app.addapp(title='Pistols')
     def pistol_stats():
-        
-
-        # Locate all the data matching 'Pistol' for column ['Type'], assign to pistol data
-        # Pass pistol data to our weapon_card function
         pistol_data = data.loc[data['Type'] == 'Pistol']
         weapon_card( weapon_data = pistol_data)
 
-
-    # Create page for Shotgun stats
+    # Shotgun stats
     @app.addapp(title='Shotguns')
     def shotgun_stats():
-        
-
-        # Locate all the data matching 'Shotgun' for column ['Type'], assign to shotgun data
-        # Pass shotgun data to our weapon_card function
         shotgun_data = data.loc[data['Type'] == 'Shotgun']
         weapon_card( weapon_data = shotgun_data)
 
-
-    # Create page for SMG stats
+    # SMG stats
     @app.addapp(title='SMGs')
     def smg_stats():
-        
-
-        # Locate all the data matching 'SMG' for column ['Type'], assign to smg data
-        # Pass smg data to our weapon_card function
         smg_data = data.loc[data['Type'] == 'SMG']
         weapon_card( weapon_data = smg_data)
 
-
-    # Create page for Sniper Rifle stats
+    # Rifle stats
     @app.addapp(title='Sniper Rifles')
     def sniper_rifle_stats():
-        
-
-        # Locate all the data matching 'Sniper Rifle' for column ['Type'], assign to sniper data
-        # Pass sniper data to our weapon_card function
         sniper_data = data.loc[data['Type'] == 'Sniper Rifle']
         weapon_card( weapon_data = sniper_data)
 
-
-    # Create page for Machine Gun stats
+    # Machine Gun stats
     @app.addapp(title='Machine Guns')
     def machine_gun_stats():
-        
-
-        # Locate all the data matching 'MG' for column ['Type'], assign to mg data
-        # Pass mg data to our weapon_card function
         mg_data = data.loc[data['Type'] == 'MG']
         weapon_card( weapon_data = mg_data)
 
