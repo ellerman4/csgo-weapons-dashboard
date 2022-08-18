@@ -1,15 +1,9 @@
 from streamlit_echarts import st_echarts
 import random
 import string
+import pandas as pd
 
-def render_ring_gauge(weapon_data):
-    # Determine which max values to be used in ring guage, based on weapon ['Type'] column
-    if weapon_data['Type'] == 'Rifle': max_dps, max_rof, max_recoil  = 367, 687, 30
-    elif weapon_data['Type'] == 'MG': max_dps, max_rof, max_recoil  = 583, 1000, 25
-    elif weapon_data['Type'] == 'Pistol': max_dps, max_rof, max_recoil  = 317, 600, 48
-    elif weapon_data['Type'] == 'Shotgun': max_dps, max_rof, max_recoil  = 343, 171, 165
-    elif weapon_data['Type'] == 'SMG': max_dps, max_rof, max_recoil  = 389, 857, 23
-    elif weapon_data['Type'] == 'Sniper Rifle': max_dps, max_rof, max_recoil  = 320, 240, 78
+def render_ring_gauge(weapon_data, max_dps, max_rof, max_recoil):
 
     option = {
         "series": [

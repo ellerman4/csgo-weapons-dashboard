@@ -18,15 +18,18 @@ if __name__ == '__main__':
     #   And use the data in said row to create a set of hydralit elements and css/html for each
 
     def weapon_card(weapon_data):
-        for index, weapon_data in weapon_data.iterrows():   # Iterrate through each row (each weapon)
-            weapon_name = weapon_data['Name']               # Get weapon attributes from respective columns
-            weapon_img = weapon_data['Image Path']
-            weapon_caption = weapon_data['Caption']
-            weapon_ammo = f"{str(weapon_data['Clip Size'])}/{str(weapon_data['Max Ammo'])}"
-            weapon_table = get_data_table(weapon_data)
-            weapon_gif = weapon_data['Gif']
-            weapon_cost = str(weapon_data['Cost'])
-            weapon_pen = str(weapon_data['Armor Penetration'])
+
+        align_justify() # CSS for aligning our content
+
+        for index, weapon in weapon_data.iterrows():   # Iterrate through each row (each weapon)
+            weapon_name = weapon['Name']               # Get weapon attributes from respective columns
+            weapon_img = weapon['Image Path']
+            weapon_caption = weapon['Caption']
+            weapon_ammo = f"{str(weapon['Clip Size'])}/{str(weapon['Max Ammo'])}"
+            weapon_table = get_data_table(weapon)
+            weapon_gif = weapon['Gif']
+            weapon_cost = str(weapon['Cost'])
+            weapon_pen = str(weapon['Armor Penetration'])
 
             # Clean data tables if needed (some tables are scraped with strange properties)
             if len(weapon_table.columns) > 3:
@@ -64,7 +67,11 @@ if __name__ == '__main__':
                         caption=weapon_caption)
 
             with weapon_col[1]:
-                render_ring_gauge(weapon_data)  # Ring guage showing DPS, RoF, and Recoil
+                render_ring_gauge(
+                weapon_data = weapon,
+                max_dps = weapon_data['DPS'].max(),
+                max_rof = weapon_data['RoF'].max(),
+                max_recoil = weapon_data['Recoil'].max())  # Ring guage showing DPS, RoF, and Recoil
 
             with weapon_col[2]:
                 hy.dataframe(weapon_table[:-1]) # Damage Table
@@ -73,7 +80,7 @@ if __name__ == '__main__':
                 hy.image(weapon_gif, width=140) # Spray pattern via gif
 
             with weapon_col[4]:
-                killfeed(weapon_data)           # Killfeed preview via css/html
+                killfeed(weapon)           # Killfeed preview via css/html
 
             with hy.expander("Trivia"):
                 hy.write("""""")
@@ -130,7 +137,7 @@ if __name__ == '__main__':
     def rifle_stats():
         # Align and justify css with align_justify function
         # Could be implemented in weapon_card function to not repeat ourselves, but creates inefficient loading
-        align_justify()
+        
 
         # Locate all the data matching 'Rifle' for column ['Type'], assign to rifle data
         # Pass rifle data to our weapon_card function
@@ -141,7 +148,7 @@ if __name__ == '__main__':
     # Create page for Pistol stats
     @app.addapp(title='Pistols')
     def pistol_stats():
-        align_justify()
+        
 
         # Locate all the data matching 'Pistol' for column ['Type'], assign to pistol data
         # Pass pistol data to our weapon_card function
@@ -152,7 +159,7 @@ if __name__ == '__main__':
     # Create page for Shotgun stats
     @app.addapp(title='Shotguns')
     def shotgun_stats():
-        align_justify()
+        
 
         # Locate all the data matching 'Shotgun' for column ['Type'], assign to shotgun data
         # Pass shotgun data to our weapon_card function
@@ -163,7 +170,7 @@ if __name__ == '__main__':
     # Create page for SMG stats
     @app.addapp(title='SMGs')
     def smg_stats():
-        align_justify()
+        
 
         # Locate all the data matching 'SMG' for column ['Type'], assign to smg data
         # Pass smg data to our weapon_card function
@@ -174,7 +181,7 @@ if __name__ == '__main__':
     # Create page for Sniper Rifle stats
     @app.addapp(title='Sniper Rifles')
     def sniper_rifle_stats():
-        align_justify()
+        
 
         # Locate all the data matching 'Sniper Rifle' for column ['Type'], assign to sniper data
         # Pass sniper data to our weapon_card function
@@ -185,7 +192,7 @@ if __name__ == '__main__':
     # Create page for Machine Gun stats
     @app.addapp(title='Machine Guns')
     def machine_gun_stats():
-        align_justify()
+        
 
         # Locate all the data matching 'MG' for column ['Type'], assign to mg data
         # Pass mg data to our weapon_card function
