@@ -12,6 +12,7 @@ if __name__ == '__main__':
     def get_data_table(weapon_data):
         return pd.read_html(weapon_data['Wiki'], skiprows=1)[0]
 
+
     #   Crate a function to create a sort of template for every item passed to it
     #   i.e. https://i.gyazo.com/b1508db3014944302c498398f3251cc5.png
     #   weapon_data will be a multi-row DataFrame, so we will loop through each row
@@ -22,14 +23,8 @@ if __name__ == '__main__':
         align_justify() # CSS for aligning our content
 
         for index, weapon in weapon_data.iterrows():   # Iterrate through each row (each weapon)
-            weapon_name = weapon['Name']               # Get weapon attributes from respective columns
-            weapon_img = weapon['Image Path']
-            weapon_caption = weapon['Caption']
             weapon_ammo = f"{str(weapon['Clip Size'])}/{str(weapon['Max Ammo'])}"
             weapon_table = get_data_table(weapon)
-            weapon_gif = weapon['Gif']
-            weapon_cost = str(weapon['Cost'])
-            weapon_pen = str(weapon['Armor Penetration'])
 
             # Clean data tables if needed (some tables are scraped with strange properties)
             if len(weapon_table.columns) > 3:
@@ -42,45 +37,51 @@ if __name__ == '__main__':
 
             # Call draw_name_ammo, display in first column
             with title_col[0]:
-                draw_name_ammo(weapon_name, weapon_ammo)
+                draw_name_ammo(weapon['Name'] , weapon_ammo)
             
             # Create metric components for cost/armor pen, put in remaining columns
             with title_col[1]:
                 hy.metric(
                     label = "Cost",
-                    value = weapon_cost,
+                    value = str(weapon['Cost']),
                     delta = "test")
 
             with title_col[2]:
                 hy.metric(
                     label = "Armor Penetration",
-                    value = weapon_pen,
+                    value = str(weapon['Armor Penetration']),
                     delta = "test")
+
 
             # Create 5 hydralit column elements, for our 'weapon' row
             # i.e. https://i.gyazo.com/d282e4a73dcd709793de4e37df64ecc4.png
             weapon_col = hy.columns(5)
 
-            with weapon_col[0]:                 # Weapon Image
-                hy.image(weapon_img,            # 'with caption'
+            # Weapon Image with caption
+            with weapon_col[0]:
+                hy.image(weapon['Image Path'],
                         width=260,
-                        caption=weapon_caption)
+                        caption=weapon['Caption'])
 
+            # A ring guage chart from charts.py
             with weapon_col[1]:
                 render_ring_gauge(
                 weapon_data = weapon,
                 max_dps = weapon_data['DPS'].max(),
                 max_rof = weapon_data['RoF'].max(),
-                max_recoil = weapon_data['Recoil'].max())  # Ring guage showing DPS, RoF, and Recoil
+                max_recoil = weapon_data['Recoil'].max())  
 
+            # Damage Table
             with weapon_col[2]:
-                hy.dataframe(weapon_table[:-1]) # Damage Table
+                hy.dataframe(weapon_table[:-1])
 
+            # Spray pattern via gif
             with weapon_col[3]:
-                hy.image(weapon_gif, width=140) # Spray pattern via gif
+                hy.image(weapon['Gif'], width=140)
 
+            # Killfeed preview via css/html
             with weapon_col[4]:
-                killfeed(weapon)           # Killfeed preview via css/html
+                killfeed(weapon)
 
             with hy.expander("Trivia"):
                 hy.write("""""")
